@@ -1,0 +1,123 @@
+using System;
+
+public class List
+{
+    private object[] _items;
+    private int _size;
+
+    public List()
+    {
+        _items = new object[4]; // initial capacity
+        _size = 0;
+    }
+
+    public List(int capacity)
+    {
+        _items = new object[capacity];
+        _size = 0;
+    }
+
+    public int Count => _size;
+
+    public void Add(object item)
+    {
+        EnsureCapacity(_size + 1);
+        _items[_size++] = item;
+    }
+
+    public void Insert(int index, object item)
+    {
+        if (index < 0 || index > _size)
+            throw new ArgumentOutOfRangeException(nameof(index));
+
+        EnsureCapacity(_size + 1);
+
+        Array.Copy(_items, index, _items, index + 1, _size - index);
+        _items[index] = item;
+        _size++;
+    }
+
+    public void Remove(object item)
+    {
+        int index = IndexOf(item);
+        if (index >= 0)
+            RemoveAt(index);
+    }
+
+    public void RemoveAt(int index)
+    {
+        if (index < 0 || index >= _size)
+            throw new ArgumentOutOfRangeException(nameof(index));
+
+        Array.Copy(_items, index + 1, _items, index, _size - index - 1);
+        _items[--_size] = null;
+    }
+
+    public void Clear()
+    {
+        Array.Clear(_items, 0, _size);
+        _size = 0;
+    }
+
+    public bool Contains(object item)
+    {
+        return IndexOf(item) >= 0;
+    }
+
+    public int IndexOf(object item)
+    {
+        for (int i = 0; i < _size; i++)
+        {
+            if (Equals(_items[i], item))
+                return i;
+        }
+        return -1;
+    }
+
+    public object[] ToArray()
+    {
+        object[] array = new object[_size];
+        Array.Copy(_items, array, _size);
+        return array;
+    }
+
+    public void Reverse()
+    {
+        for (int i = 0; i < _size / 2; i++)
+        {
+            object temp = _items[i];
+            _items[i] = _items[_size - i - 1];
+            _items[_size - i - 1] = temp;
+        }
+    }
+
+    private void EnsureCapacity(int minCapacity)
+    {
+        if (_items.Length < minCapacity)
+        {
+            int newCapacity = _items.Length == 0 ? 4 : _items.Length * 2;
+            if (newCapacity < minCapacity)
+                newCapacity = minCapacity;
+
+            Array.Resize(ref _items, newCapacity);
+        }
+    }
+
+    public object this[int index]
+    {
+        get
+        {
+            if (index < 0 || index >= _size)
+                throw new ArgumentOutOfRangeException(nameof(index));
+
+            return _items[index];
+        }
+        set
+        {
+            if (index < 0 || index >= _size)
+                throw new ArgumentOutOfRangeException(nameof(index));
+
+            _items[index] = value;
+        }
+    }
+}
