@@ -1,0 +1,91 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        
+        List
+        List list = new List();
+        list.Add(5);
+        list.Add("Hello");
+        list.Insert(1, 10);
+        list.Reverse();
+
+        Console.WriteLine("List elements:");
+        foreach (object item in list.ToArray())
+        {
+            Console.WriteLine(item);
+        }
+
+       
+        BinarySearchTree
+        BinarySearchTree bst = new BinarySearchTree();
+        bst.Add(5);
+        bst.Add(3);
+        bst.Add(7);
+        bst.Add(1);
+        bst.Add(9);
+
+        Console.WriteLine("\nBinary Search Tree elements (in order):");
+        int[] bstArray = bst.ToArray();
+        foreach (int value in bstArray)
+        {
+            Console.WriteLine(value);
+        }
+
+         SinglyLinkedList
+        SinglyLinkedList singlyList = new SinglyLinkedList();
+        singlyList.Add(1);
+        singlyList.Add(2);
+        singlyList.Insert(1, 3);
+        singlyList.Remove(2);
+
+        Console.WriteLine("\nSingly Linked List elements:");
+        foreach (object item in singlyList.ToArray())
+        {
+            Console.WriteLine(item);
+        }
+
+         DoublyLinkedList
+        DoublyLinkedList doublyList = new DoublyLinkedList();
+        doublyList.Add(1);
+        doublyList.Add(2);
+        doublyList.Insert(1, 3);
+        doublyList.Remove(2);
+
+        Console.WriteLine("\nDoubly Linked List elements:");
+        foreach (object item in doublyList.ToArray())
+        {
+            Console.WriteLine(item);
+        }
+
+         Queue
+        Queue queue = new Queue();
+        queue.Enqueue(1);
+        queue.Enqueue(2);
+        queue.Enqueue(3);
+        queue.Dequeue();
+
+        Console.WriteLine("\nQueue elements:");
+        foreach (object item in queue.ToArray())
+        {
+            Console.WriteLine(item);
+        }
+
+        Stack
+        Stack stack = new Stack();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+        stack.Pop();
+
+        Console.WriteLine("\nStack elements:");
+        foreach (object item in stack.ToArray())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.ReadLine();
+    }
+}
