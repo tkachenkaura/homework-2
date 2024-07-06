@@ -1,0 +1,96 @@
+public class Queue
+{
+    private class QueueNode
+    {
+        public object Value;
+        public QueueNode Next;
+
+        public QueueNode(object value)
+        {
+            Value = value;
+            Next = null;
+        }
+    }
+
+    private QueueNode _head;
+    private QueueNode _tail;
+    private int _count;
+
+    public Queue()
+    {
+        _head = null;
+        _tail = null;
+        _count = 0;
+    }
+
+    public int Count => _count;
+
+    public void Enqueue(object item)
+    {
+        QueueNode newNode = new QueueNode(item);
+        if (_tail == null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        else
+        {
+            _tail.Next = newNode;
+            _tail = newNode;
+        }
+        _count++;
+    }
+
+    public object Dequeue()
+    {
+        if (_head == null)
+            throw new InvalidOperationException("Queue is empty");
+
+        object value = _head.Value;
+        _head = _head.Next;
+        _count--;
+        if (_head == null)
+            _tail = null;
+        return value;
+    }
+
+    public void Clear()
+    {
+        _head = null;
+        _tail = null;
+        _count = 0;
+    }
+
+    public bool Contains(object item)
+    {
+        QueueNode current = _head;
+        while (current != null)
+        {
+            if (Equals(current.Value, item))
+                return true;
+            current = current.Next;
+        }
+        return false;
+    }
+
+    public object Peek()
+    {
+        if (_head == null)
+            throw new InvalidOperationException("Queue is empty");
+
+        return _head.Value;
+    }
+
+    public object[] ToArray()
+    {
+        object[] array = new object[_count];
+        QueueNode current = _head;
+        int index = 0;
+        while (current != null)
+        {
+            array[index++] = current.Value;
+            current = current.Next;
+        }
+        return array;
+    }
+}
